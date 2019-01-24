@@ -2,10 +2,10 @@ var rp = require('request-promise');
 
 async function insertStock(stockCodes) {
   let testStocksData = {
-    GOOGL: {code: 'GOOGL', name: 'Alphabet Inc Class A'},
-    AAPL: {code: 'AAPL', name: 'Apple Inc.'},
-    MSFT: {code: 'MSFT', name: 'Microsoft Corporation'},
-    FB: {code: 'FB', name: 'Facebook, Inc. Common Stock'}
+    GOOGL: {code: 'GOOGL', name: 'Alphabet Inc Class A', description: 'Alphabet Inc is a provider of internet content products and portals. Its suite of brands includes Search, Android, YouTube, Apps, Maps & Ads.', sector:'Technology'},
+    AAPL: {code: 'AAPL', name: 'Apple Inc.', description: 'Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.', sector:'Technology'},
+    MSFT: {code: 'MSFT', name: 'Microsoft Corporation', description: 'Microsoft Corp is a technology company. It develop, license, and support a wide range of software products and services. Its business is organized into three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing.', sector: 'Technology'},
+    FB: {code: 'FB', name: 'Facebook, Inc. Common Stock', description: "Facebook Inc is the world's largest online social network. Its products are Facebook, Instagram, Messenger, WhatsApp, and Oculus. Its products enable people to connect and share through mobile devices and personal computers.", sector: 'Technology'}
   };
 
   let stocksData = await rp({
@@ -17,7 +17,9 @@ async function insertStock(stockCodes) {
   for (let stockCode in stocksData) {
     stocks[stockCode] = {
       code: stockCode,
-      name: stocksData[stockCode].company.companyName
+      name: stocksData[stockCode].company.companyName,
+      description: stocksData[stockCode].company.description,
+      sector: stocksData[stockCode].company.sector
     };
   }
   for (let stockCode in testStocksData) {
